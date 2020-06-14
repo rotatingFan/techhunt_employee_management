@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.techhunt.EEMagmt.DAO.EmployeeDAO">
+
+    <select id="getEmployeeList" resultType="Employee">
+        <include refid="com.techhunt.EEMagmt.DAO.EmployeeDAO.getEmployee"></include>
+    </select>
+    
+    <select id="getEmployeeById" resultType="Employee">
+    	<include refid="com.techhunt.EEMagmt.DAO.EmployeeDAO.getEmployee"></include>
+    	WHERE
+    		ID=#{id}
+    </select>
+    
+    <update id="updateEmployee">
+    	UPDATE
+    		EMPYMTDB.EMPLOYEE
+    	SET
+    		LOGIN=#{login},
+    		NAME=#{name},
+    		SALARY=#{salary},
+    		DTE_UPDATED=SYSDATE()
+    	WHERE
+    		ID=#{id}
+    	AND
+    		VERSION=#{version}
+    </update>
+    
+    <sql id="getEmployee">
+    	SELECT
+        	ID,
+        	LOGIN,
+        	NAME,
+        	SALARY,
+        	VERSION,
+        	DTE_UPDATED AS dateUpdated,
+        	DTE_CREATED AS dateCreated
+        FROM
+        	EMPYMTDB.EMPLOYEE
+    </sql>
+</mapper>
