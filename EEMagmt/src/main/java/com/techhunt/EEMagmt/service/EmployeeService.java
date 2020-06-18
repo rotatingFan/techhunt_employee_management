@@ -19,7 +19,6 @@ import com.techhunt.EEMagmt.validate.EmployeeValidation;
 @Service
 public class EmployeeService {
 
-	private static final Logger logger = LogManager.getLogger(EmployeeService.class);
 	@Autowired
 	private EmployeeDAO employeeDao;
 	
@@ -31,7 +30,6 @@ public class EmployeeService {
 		List<Employee> employees = getEmployeeList(minSalary, maxSalary, limit*offset, limit,sort,orderAsc);
 		resp.setResults(employees);
 		resp.setMaxPage(employeeDao.getPaginationPage(minSalary, maxSalary));
-		logger.debug("IM HEREEEE");
 		return resp;
 	}
 	
