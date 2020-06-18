@@ -18,12 +18,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { UploadEmployeeListComponent } from './upload-employee-list/upload-employee-list.component';
+import { AlertComponent } from './alert/alert.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewEmployeeComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    UploadEmployeeListComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +49,12 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

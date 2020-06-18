@@ -6,12 +6,31 @@
 
     <select id="getEmployeeList" resultType="Employee">
         <include refid="com.techhunt.EEMagmt.DAO.EmployeeDAO.getEmployee"></include>
+        WHERE
+        	SALARY BETWEEN #{minSalary} AND #{maxSalary}
+       	ORDER BY ${sort}
+        <if test="orderAsc==true"> ASC</if>
+        <if test="orderAsc==false"> DESC</if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    
+    <select id="getPaginationPage" resultType="int">
+    	SELECT COUNT(*) FROM 
+    		EMPYMTDB.EMPLOYEE
+    	WHERE
+    		SALARY BETWEEN #{minSalary} AND #{maxSalary}
     </select>
     
     <select id="getEmployeeById" resultType="Employee">
     	<include refid="com.techhunt.EEMagmt.DAO.EmployeeDAO.getEmployee"></include>
     	WHERE
     		ID=#{id}
+    </select>
+    
+    <select id="getEmployeeListByLogin" resultType="Employee">
+    <include refid="com.techhunt.EEMagmt.DAO.EmployeeDAO.getEmployee"></include>
+    	WHERE
+    		LOGIN=#{login}
     </select>
     
     <update id="updateEmployee">
@@ -21,12 +40,48 @@
     		LOGIN=#{login},
     		NAME=#{name},
     		SALARY=#{salary},
-    		DTE_UPDATED=SYSDATE()
+    		DTE_UPDATED=SYSDATE(),
+    		VERSION = VERSION+1
     	WHERE
     		ID=#{id}
     	AND
     		VERSION=#{version}
     </update>
+    
+    <insert id="addEmployee" parameterType="Employee" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+    	INSERT INTO
+    		EMPYMTDB.EMPLOYEE
+    	(
+    		ID,
+		    LOGIN,
+		    NAME,
+		    SALARY,
+		    VERSION,
+			DTE_UPDATED,
+			DTE_CREATED
+    	)
+    	VALUES
+    	(
+    		#{id},
+    		#{login},
+    		#{name},
+    		#{salary},
+    		1,
+    		SYSDATE(),
+    		SYSDATE()
+    	)
+    </insert>
+    
+    <delete id="deleteEmployeeById">
+    	DELETE FROM
+    		EMPYMTDB.EMPLOYEE
+    	WHERE
+    		ID=#{id}
+    </delete>
+    
+    <insert id="generateId"  parameterType="Employee" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+    	INSERT INTO EMPYMTDB.ID_GENERATOR (DTE_CREATED) VALUES(SYSDATE())
+    </insert>
     
     <sql id="getEmployee">
     	SELECT

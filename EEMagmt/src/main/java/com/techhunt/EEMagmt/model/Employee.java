@@ -1,6 +1,7 @@
 package com.techhunt.EEMagmt.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Employee {
 	private String id;
@@ -10,6 +11,10 @@ public class Employee {
 	private int version;
 	private Date dateUpdated;
 	private Date dateCreated;
+	
+	//for mass upload
+	private List<String> errorList;
+	private int row;
 	
 	public String getId() {
 		return id;
@@ -52,6 +57,18 @@ public class Employee {
 	}
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+	public List<String> getErrorList() {
+		return errorList;
+	}
+	public void setErrorList(List<String> errorList) {
+		this.errorList = errorList;
+	}
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
 	}
 	
 }

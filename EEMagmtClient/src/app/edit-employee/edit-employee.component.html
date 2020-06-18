@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>
-    Edit
+    <span *ngIf="action=='update'">Edit Employee</span>
+    <span *ngIf="action=='add'">Add New Employee</span>
 </h1>
+<div *ngIf="action=='update'">
+    ID:&nbsp;{{employee.id}}
+</div>
 <div mat-dialog-content>
     <div [formGroup]="employeeForm">
         <mat-form-field style="width:100%">
@@ -28,6 +32,8 @@
 </div>
 
 <mat-dialog-actions>
-        <button class="action-btn" [disabled]="!employeeForm.valid || !employeeForm.touched" mat-raised-button color="primary" (click)="updateEmployee()">Update</button>
-        <button style="margin-left:0px;" class="action-btn" mat-stroked-button color="primary">Delete</button>
+        <button *ngIf="action=='update'" class="action-btn" [disabled]="!employeeForm.valid || !employeeForm.touched" mat-raised-button color="primary" (click)="updateEmployee()">Update</button>
+        <!-- <button *ngIf="action=='update'" class="action-btn" mat-raised-button color="primary" (click)="updateEmployee()">Update</button> -->
+        <button *ngIf="action=='add'" [disabled]="!employeeForm.valid || !employeeForm.touched" mat-raised-button color="primary"  class="action-btn" mat-raised-button color="primary" (click)="addEmployee()">Add</button>
+        <button *ngIf="action=='update'" style="margin-left:0px;" class="action-btn" mat-stroked-button color="primary" (click)="deleteEmployee()">Delete</button>
 </mat-dialog-actions>
