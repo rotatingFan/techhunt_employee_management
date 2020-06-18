@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import {UploadEmployeeListComponent} from '../upload-employee-list/upload-employee-list.component';
 import {AlertComponent} from '../alert/alert.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-view-employee',
@@ -39,6 +40,7 @@ export class ViewEmployeeComponent implements OnInit {
   getEmployeeSub:Subscription = null;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
@@ -69,7 +71,6 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   pageData(pageEvent: PageEvent){
-    console.log(pageEvent);
     this.limit=pageEvent.pageSize;
     this.offset=pageEvent.pageIndex;
     this.getEmployeeList();

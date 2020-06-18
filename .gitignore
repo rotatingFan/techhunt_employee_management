@@ -1,3 +1,4 @@
 /.metadata/
 EEMagmt/target/
 EEMagmtClient/node_modules/
+EEMagmtClient/dist/

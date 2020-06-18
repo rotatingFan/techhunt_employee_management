@@ -1,11 +1,18 @@
-
 <mat-toolbar color="primary">
-    <button mat-icon-button ><mat-icon>menu</mat-icon></button>
-    <h1>Employee Management</h1>
-  </mat-toolbar>
+  <button mat-icon-button  (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Employee Management</h1>
+</mat-toolbar>
 
 <mat-drawer-container style="height:100%;">
-  <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+  <mat-drawer #drawer style="width: 8em;" mode="side">
+    <mat-nav-list style="text-align: center;">
+      <mat-icon style="font-size: 4em; margin-right: 0.5em;" color="primary">face</mat-icon>
+      <br> <span style="font-size: 1.5em; font-weight: bold">Hello</span>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+  </mat-drawer>
   <mat-drawer-content>
     <app-view-employee></app-view-employee>
   </mat-drawer-content>

@@ -25,7 +25,7 @@ import com.techhunt.EEMagmt.model.Employee;
 import com.techhunt.EEMagmt.model.GetEmployeeResponse;
 import com.techhunt.EEMagmt.model.JSONResponse;
 import com.techhunt.EEMagmt.service.EmployeeService;
-
+import org.apache.commons.io.FilenameUtils;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -110,6 +110,15 @@ public class EmployeeRestController {
 		List<Employee> data = new ArrayList<Employee>();
 		try {
 			
+			//check file type
+			String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+			System.out.println(ext);
+			if(!ext.equals("csv")) {
+				resp.setStatus(JSONResponse.FAIL);
+				resp.setErrorMessage("Only .csv file allowed");
+				return resp;
+			}
+			
 			Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			 CSVReader readercsv = new CSVReader(reader);
 		     String [] nextLine;
@@ -129,7 +138,7 @@ public class EmployeeRestController {
 		        		employee.setId(StringUtils.isEmpty(nextLine[0])?null:nextLine[0]);
 		        		employee.setName(nextLine[1]);
 		        		employee.setLogin(nextLine[2]);
-		        		employee.setSalary(Double.parseDouble(nextLine[3]));
+		        		employee.setSalary(StringUtils.isEmpty(nextLine[3])?0.0:Double.parseDouble(nextLine[3]));
 		        		data.add(employee);
 		        	}else if(!nextLine[0].substring(0,1).equals("#")){
 		        		System.out.println(count);
@@ -138,7 +147,7 @@ public class EmployeeRestController {
 		        		employee.setId(StringUtils.isEmpty(nextLine[0])?null:nextLine[0]);
 		        		employee.setName(nextLine[1]);
 		        		employee.setLogin(nextLine[2]);
-		        		employee.setSalary(Double.parseDouble(nextLine[3]));
+		        		employee.setSalary(StringUtils.isEmpty(nextLine[3])?0.0:Double.parseDouble(nextLine[3]));
 		        		data.add(employee);
 		        	}
 		        }
